@@ -16,7 +16,13 @@ public class Main {
                     "0. 프로그램 종료\n" +
                     "===========================");
             System.out.print("메뉴 선택: ");
-            int menu = Integer.parseInt(sc.nextLine().trim());
+            int menu;
+            try {
+                menu = Integer.parseInt(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해주세요.");
+                continue;
+            }
             if (menu == 0) {
                 break;
             }
@@ -67,7 +73,13 @@ public class Main {
                 case 3 -> {
                     System.out.println("게시글 상세 조회를 선택했습니다.");
                     System.out.print("조회할 게시글 번호: ");
-                    int id = Integer.parseInt(sc.nextLine().trim());
+                    int id;
+                    try {
+                        id = Integer.parseInt(sc.nextLine().trim());
+                    } catch (NumberFormatException e) {
+                        System.out.println("숫자를 입력해주세요.");
+                        continue;
+                    }
                     Post foundPost = null;
                     System.out.println("========= 게시글 상세 ========");
                     for (Post post : posts) {
@@ -90,7 +102,13 @@ public class Main {
                 case 4 -> {
                     System.out.println("게시글 수정을 선택했습니다.");
                     System.out.print("수정할 게시글 번호: ");
-                    int id = Integer.parseInt(sc.nextLine().trim());
+                    int id;
+                    try {
+                        id = Integer.parseInt(sc.nextLine().trim());
+                    } catch (NumberFormatException e) {
+                        System.out.println("숫자를 입력해주세요.");
+                        continue;
+                    }
                     Post updatePost = null;
                     for (Post post : posts) {
                         if (post.getId() == id) {
@@ -137,7 +155,13 @@ public class Main {
                 case 5 -> {
                     System.out.println("게시글 삭제를 선택했습니다.");
                     System.out.print("삭제할 게시글 번호: ");
-                    int id = Integer.parseInt(sc.nextLine().trim());
+                    int id;
+                    try {
+                        id = Integer.parseInt(sc.nextLine().trim());
+                    } catch (NumberFormatException e) {
+                        System.out.println("숫자를 입력해주세요.");
+                        continue;
+                    }
                     Post removePost = null;
                     for (Post post : posts) {
                         if (post.getId() == id) {
