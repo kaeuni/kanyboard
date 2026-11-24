@@ -16,29 +16,7 @@ public class Main {
                 case 1 -> nextId = createPost(sc, posts, nextId);
                 case 2 -> findAllPosts(posts);
                 case 3 -> findPost(sc, posts);
-                case 4 -> {
-                    System.out.println("게시글 수정을 선택했습니다.");
-                    int id = readInt(sc, "수정할 게시글 번호: ");
-                    Post updatePost = findByPostId(posts, id);
-                    if (updatePost == null) {
-                        System.out.println("존재하지 않는 게시글 번호입니다.");
-                    } else {
-                        System.out.println();
-                        System.out.println("기존 제목: " + updatePost.getTitle());
-                        System.out.println("기존 내용: " + updatePost.getContent());
-                        System.out.println("기존 작성자: " + updatePost.getAuthor());
-
-
-                        String newTitle = readRequiredString(sc, "새로운 제목: ", "제목은 필수 입력 항목입니다.");
-                        String newContent = readRequiredString(sc, "새로운 내용: ", "내용은 필수 입력 항목입니다.");
-                        String newAuthor = readRequiredString(sc, "새로운 작성자: ", "작성자는 필수 입력 항목입니다.");
-
-                        updatePost.setTitle(newTitle);
-                        updatePost.setContent(newContent);
-                        updatePost.setAuthor(newAuthor);
-                        System.out.println("게시글이 수정되었습니다.");
-                    }
-                }
+                case 4 -> updatePost(sc, posts);
                 case 5 -> {
                     System.out.println("게시글 삭제를 선택했습니다.");
                     int id = readInt(sc, "삭제할 게시글 번호: ");
@@ -152,6 +130,30 @@ public class Main {
                             + "내용: " + foundPost.getContent() + "\n"
                             + "작성자: " + foundPost.getAuthor());
             System.out.println("===========================");
+        }
+    }
+
+    public static void updatePost(Scanner sc, ArrayList<Post> posts) {
+        System.out.println("게시글 수정을 선택했습니다.");
+        int id = readInt(sc, "수정할 게시글 번호: ");
+        Post updatePost = findByPostId(posts, id);
+        if (updatePost == null) {
+            System.out.println("존재하지 않는 게시글 번호입니다.");
+        } else {
+            System.out.println();
+            System.out.println("기존 제목: " + updatePost.getTitle());
+            System.out.println("기존 내용: " + updatePost.getContent());
+            System.out.println("기존 작성자: " + updatePost.getAuthor());
+            System.out.println();
+
+            String newTitle = readRequiredString(sc, "새로운 제목: ", "제목은 필수 입력 항목입니다.");
+            String newContent = readRequiredString(sc, "새로운 내용: ", "내용은 필수 입력 항목입니다.");
+            String newAuthor = readRequiredString(sc, "새로운 작성자: ", "작성자는 필수 입력 항목입니다.");
+
+            updatePost.setTitle(newTitle);
+            updatePost.setContent(newContent);
+            updatePost.setAuthor(newAuthor);
+            System.out.println("게시글이 수정되었습니다.");
         }
     }
 }
