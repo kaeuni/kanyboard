@@ -15,41 +15,16 @@ public class Main {
                     "5. 게시글 삭제\n" +
                     "0. 프로그램 종료\n" +
                     "===========================");
-            System.out.print("메뉴 선택: ");
-            int menu;
-            try {
-                menu = Integer.parseInt(sc.nextLine().trim());
-            } catch (NumberFormatException e) {
-                System.out.println("숫자를 입력해주세요.");
-                continue;
-            }
+            int menu = readInt(sc, "메뉴 선택: ");
             if (menu == 0) {
                 break;
             }
             switch (menu) {
                 case 1 -> {
                     System.out.println("게시글 등록을 선택했습니다.");
-                    System.out.print("제목: ");
-                    String title = sc.nextLine().trim();
-                    while (title.isEmpty()) {
-                        System.out.println("제목은 필수 입력 항목입니다.");
-                        System.out.print("제목: ");
-                        title = sc.nextLine().trim();
-                    }
-                    System.out.print("내용: ");
-                    String content = sc.nextLine().trim();
-                    while (content.isEmpty()) {
-                        System.out.println("내용은 필수 입력 항목입니다.");
-                        System.out.print("내용: ");
-                        content = sc.nextLine().trim();
-                    }
-                    System.out.print("작성자: ");
-                    String author = sc.nextLine().trim();
-                    while (author.isEmpty()) {
-                        System.out.println("작성자는 필수 입력 항목입니다.");
-                        System.out.print("작성자: ");
-                        author = sc.nextLine().trim();
-                    }
+                    String title = readRequiredString(sc, "제목: ", "제목은 필수 입력 항목입니다.");
+                    String content = readRequiredString(sc, "내용: ", "내용은 필수 입력 항목입니다.");
+                    String author = readRequiredString(sc, "작성자: ", "작성자는 필수 입력 항목입니다.");
                     Post post = new Post(nextId++, title, content, author);
                     posts.add(post);
                     System.out.println("게시글이 등록되었습니다.");
@@ -72,14 +47,7 @@ public class Main {
                 }
                 case 3 -> {
                     System.out.println("게시글 상세 조회를 선택했습니다.");
-                    System.out.print("조회할 게시글 번호: ");
-                    int id;
-                    try {
-                        id = Integer.parseInt(sc.nextLine().trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("숫자를 입력해주세요.");
-                        continue;
-                    }
+                    int id = readInt(sc, "조회할 게시글 번호: ");
                     Post foundPost = findByPostId(posts, id);
                     System.out.println("========= 게시글 상세 ========");
                     if (foundPost == null) {
@@ -95,14 +63,7 @@ public class Main {
                 }
                 case 4 -> {
                     System.out.println("게시글 수정을 선택했습니다.");
-                    System.out.print("수정할 게시글 번호: ");
-                    int id;
-                    try {
-                        id = Integer.parseInt(sc.nextLine().trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("숫자를 입력해주세요.");
-                        continue;
-                    }
+                    int id = readInt(sc, "수정할 게시글 번호: ");
                     Post updatePost = findByPostId(posts, id);
                     if (updatePost == null) {
                         System.out.println("존재하지 않는 게시글 번호입니다.");
@@ -112,44 +73,20 @@ public class Main {
                         System.out.println("기존 내용: " + updatePost.getContent());
                         System.out.println("기존 작성자: " + updatePost.getAuthor());
 
-                        System.out.print("새로운 제목: ");
-                        String title = sc.nextLine().trim();
-                        while (title.isEmpty()) {
-                            System.out.println("제목은 필수 입력 항목입니다.");
-                            System.out.print("새로운 제목: ");
-                            title = sc.nextLine().trim();
-                        }
-                        System.out.print("새로운 내용: ");
-                        String content = sc.nextLine().trim();
-                        while (content.isEmpty()) {
-                            System.out.println("내용은 필수 입력 항목입니다.");
-                            System.out.print("새로운 내용: ");
-                            content = sc.nextLine().trim();
-                        }
-                        System.out.print("새로운 작성자: ");
-                        String author = sc.nextLine().trim();
-                        while (author.isEmpty()) {
-                            System.out.println("작성자는 필수 입력 항목입니다.");
-                            System.out.print("새로운 작성자: ");
-                            author = sc.nextLine().trim();
-                        }
 
-                        updatePost.setTitle(title);
-                        updatePost.setContent(content);
-                        updatePost.setAuthor(author);
+                        String newTitle = readRequiredString(sc, "새로운 제목: ", "제목은 필수 입력 항목입니다.");
+                        String newContent = readRequiredString(sc, "새로운 내용: ", "내용은 필수 입력 항목입니다.");
+                        String newAuthor = readRequiredString(sc, "새로운 작성자: ", "작성자는 필수 입력 항목입니다.");
+
+                        updatePost.setTitle(newTitle);
+                        updatePost.setContent(newContent);
+                        updatePost.setAuthor(newAuthor);
                         System.out.println("게시글이 수정되었습니다.");
                     }
                 }
                 case 5 -> {
                     System.out.println("게시글 삭제를 선택했습니다.");
-                    System.out.print("삭제할 게시글 번호: ");
-                    int id;
-                    try {
-                        id = Integer.parseInt(sc.nextLine().trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("숫자를 입력해주세요.");
-                        continue;
-                    }
+                    int id = readInt(sc, "삭제할 게시글 번호: ");
                     Post removePost = findByPostId(posts, id);
                     if (removePost == null) {
                         System.out.println("존재하지 않는 게시글 번호입니다.");
@@ -183,5 +120,27 @@ public class Main {
             }
         }
         return null;
+    }
+
+    public static String readRequiredString(Scanner sc, String prompt, String errorMessage) {
+        System.out.print(prompt);
+        String value = sc.nextLine().trim();
+        while (value.isEmpty()) {
+            System.out.println(errorMessage);
+            System.out.print(prompt);
+            value = sc.nextLine().trim();
+        }
+        return value;
+    }
+
+    public static int readInt(Scanner sc, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            try {
+                return Integer.parseInt(sc.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해주세요.");
+            }
+        }
     }
 }
