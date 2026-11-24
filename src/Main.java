@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        ArrayList<Post> posts = new ArrayList<>();
+        int nextId = 1;
         while(true){
             System.out.println("========== 게시판 ==========\n" +
                     "1. 게시글 등록\n" +
@@ -18,7 +21,33 @@ public class Main {
                 break;
             }
             switch (menu) {
-                case 1 -> System.out.println("게시글 등록을 선택했습니다.");
+                case 1 -> {
+                    System.out.println("게시글 등록을 선택했습니다.");
+                    System.out.print("제목: ");
+                    String title = sc.nextLine().trim();
+                    while (title.isEmpty()) {
+                        System.out.println("제목은 필수 입력 항목입니다.");
+                        System.out.print("제목: ");
+                        title = sc.nextLine().trim();
+                    }
+                    System.out.print("내용: ");
+                    String content = sc.nextLine().trim();
+                    while (content.isEmpty()) {
+                        System.out.println("내용은 필수 입력 항목입니다.");
+                        System.out.print("내용: ");
+                        content = sc.nextLine().trim();
+                    }
+                    System.out.print("작성자: ");
+                    String author = sc.nextLine().trim();
+                    while (author.isEmpty()) {
+                        System.out.println("작성자는 필수 입력 항목입니다.");
+                        System.out.print("작성자: ");
+                        author = sc.nextLine().trim();
+                    }
+                    Post post = new Post(nextId++, title, content, author);
+                    posts.add(post);
+                    System.out.println("게시글이 등록되었습니다.");
+                }
                 case 2 -> System.out.println("게시글 전체 조회를 선택했습니다.");
                 case 3 -> System.out.println("게시글 상세 조회를 선택했습니다.");
                 case 4 -> System.out.println("게시글 수정을 선택했습니다.");
