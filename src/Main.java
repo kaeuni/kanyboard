@@ -15,22 +15,7 @@ public class Main {
             switch (menu) {
                 case 1 -> nextId = createPost(sc, posts, nextId);
                 case 2 -> findAllPosts(posts);
-                case 3 -> {
-                    System.out.println("게시글 상세 조회를 선택했습니다.");
-                    int id = readInt(sc, "조회할 게시글 번호: ");
-                    Post foundPost = findByPostId(posts, id);
-                    System.out.println("========= 게시글 상세 ========");
-                    if (foundPost == null) {
-                        System.out.println("존재하지 않는 게시글 번호입니다.");
-                    } else {
-                        System.out.println(
-                            "번호: " + foundPost.getId() + "\n"
-                            + "제목: " + foundPost.getTitle() + "\n"
-                            + "내용: " + foundPost.getContent() + "\n"
-                            + "작성자: " + foundPost.getAuthor());
-                        System.out.println("===========================");
-                    }
-                }
+                case 3 -> findPost(sc, posts);
                 case 4 -> {
                     System.out.println("게시글 수정을 선택했습니다.");
                     int id = readInt(sc, "수정할 게시글 번호: ");
@@ -150,6 +135,23 @@ public class Main {
             }
             System.out.println("===========================\n"
                     + "총 게시글: " + posts.size() + "개");
+        }
+    }
+
+    public static void findPost(Scanner sc, ArrayList<Post> posts) {
+        System.out.println("게시글 상세 조회를 선택했습니다.");
+        int id = readInt(sc, "조회할 게시글 번호: ");
+        Post foundPost = findByPostId(posts, id);
+        System.out.println("========= 게시글 상세 ========");
+        if (foundPost == null) {
+            System.out.println("존재하지 않는 게시글 번호입니다.");
+        } else {
+            System.out.println(
+                    "번호: " + foundPost.getId() + "\n"
+                            + "제목: " + foundPost.getTitle() + "\n"
+                            + "내용: " + foundPost.getContent() + "\n"
+                            + "작성자: " + foundPost.getAuthor());
+            System.out.println("===========================");
         }
     }
 }
