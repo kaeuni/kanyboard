@@ -14,22 +14,7 @@ public class Main {
             }
             switch (menu) {
                 case 1 -> nextId = createPost(sc, posts, nextId);
-                case 2 -> {
-                    System.out.println("게시글 전체 조회를 선택했습니다.");
-                    if (posts.isEmpty()) {
-                        System.out.println("등록된 게시글이 없습니다.");
-                    } else {
-                        System.out.println("========= 게시글 목록 ========");
-                        for (Post post : posts) {
-                            System.out.println(
-                                    "번호: " + post.getId() + "|"
-                                    + "제목: " + post.getTitle() + "|"
-                                    + "작성자: " + post.getAuthor());
-                        }
-                        System.out.println("===========================\n"
-                                + "총 게시글: " + posts.size() + "개");
-                    }
-                }
+                case 2 -> findAllPosts(posts);
                 case 3 -> {
                     System.out.println("게시글 상세 조회를 선택했습니다.");
                     int id = readInt(sc, "조회할 게시글 번호: ");
@@ -149,5 +134,22 @@ public class Main {
         posts.add(post);
         System.out.println("게시글이 등록되었습니다.");
         return  nextId;
+    }
+
+    public static void findAllPosts(ArrayList<Post> posts) {
+        System.out.println("게시글 전체 조회를 선택했습니다.");
+        if (posts.isEmpty()) {
+            System.out.println("등록된 게시글이 없습니다.");
+        } else {
+            System.out.println("========= 게시글 목록 ========");
+            for (Post post : posts) {
+                System.out.println(
+                        "번호: " + post.getId() + "|"
+                                + "제목: " + post.getTitle() + "|"
+                                + "작성자: " + post.getAuthor());
+            }
+            System.out.println("===========================\n"
+                    + "총 게시글: " + posts.size() + "개");
+        }
     }
 }
