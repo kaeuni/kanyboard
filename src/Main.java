@@ -7,14 +7,7 @@ public class Main {
         ArrayList<Post> posts = new ArrayList<>();
         int nextId = 1;
         while(true){
-            System.out.println("========== 게시판 ==========\n" +
-                    "1. 게시글 등록\n" +
-                    "2. 게시글 전체 조회\n" +
-                    "3. 게시글 상세 조회\n" +
-                    "4. 게시글 수정\n" +
-                    "5. 게시글 삭제\n" +
-                    "0. 프로그램 종료\n" +
-                    "===========================");
+            printMenu();
             int menu = readInt(sc, "메뉴 선택: ");
             if (menu == 0) {
                 break;
@@ -142,5 +135,16 @@ public class Main {
                 System.out.println("숫자를 입력해주세요.");
             }
         }
+    }
+
+    public static void printMenu() {
+        System.out.println("========== 게시판 ==========\n" +
+            "1. 게시글 등록\n" +
+            "2. 게시글 전체 조회\n" +
+            "3. 게시글 상세 조회\n" +
+            "4. 게시글 수정\n" +
+            "5. 게시글 삭제\n" +
+            "0. 프로그램 종료\n" +
+            "===========================");
     }
 }
