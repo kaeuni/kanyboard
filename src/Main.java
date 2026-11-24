@@ -48,7 +48,22 @@ public class Main {
                     posts.add(post);
                     System.out.println("게시글이 등록되었습니다.");
                 }
-                case 2 -> System.out.println("게시글 전체 조회를 선택했습니다.");
+                case 2 -> {
+                    System.out.println("게시글 전체 조회를 선택했습니다.");
+                    if (posts.isEmpty()) {
+                        System.out.println("등록된 게시글이 없습니다.");
+                    } else {
+                        System.out.println("========= 게시글 목록 ========");
+                        for (Post post : posts) {
+                            System.out.println(
+                                    "번호: " + post.getId() + "|"
+                                    + "제목: " + post.getTitle() + "|"
+                                    + "작성자: " + post.getAuthor());
+                        }
+                        System.out.println("===========================\n"
+                                + "총 게시글: " + posts.size() + "개");
+                    }
+                }
                 case 3 -> System.out.println("게시글 상세 조회를 선택했습니다.");
                 case 4 -> System.out.println("게시글 수정을 선택했습니다.");
                 case 5 -> System.out.println("게시글 삭제를 선택했습니다.");
