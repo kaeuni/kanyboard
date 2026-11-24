@@ -80,14 +80,8 @@ public class Main {
                         System.out.println("숫자를 입력해주세요.");
                         continue;
                     }
-                    Post foundPost = null;
+                    Post foundPost = findByPostId(posts, id);
                     System.out.println("========= 게시글 상세 ========");
-                    for (Post post : posts) {
-                        if (post.getId() == id) {
-                            foundPost = post;
-                            break;
-                        }
-                    }
                     if (foundPost == null) {
                         System.out.println("존재하지 않는 게시글 번호입니다.");
                     } else {
@@ -109,13 +103,7 @@ public class Main {
                         System.out.println("숫자를 입력해주세요.");
                         continue;
                     }
-                    Post updatePost = null;
-                    for (Post post : posts) {
-                        if (post.getId() == id) {
-                            updatePost = post;
-                            break;
-                        }
-                    }
+                    Post updatePost = findByPostId(posts, id);
                     if (updatePost == null) {
                         System.out.println("존재하지 않는 게시글 번호입니다.");
                     } else {
@@ -162,13 +150,7 @@ public class Main {
                         System.out.println("숫자를 입력해주세요.");
                         continue;
                     }
-                    Post removePost = null;
-                    for (Post post : posts) {
-                        if (post.getId() == id) {
-                            removePost = post;
-                            break;
-                        }
-                    }
+                    Post removePost = findByPostId(posts, id);
                     if (removePost == null) {
                         System.out.println("존재하지 않는 게시글 번호입니다.");
                     } else {
@@ -192,5 +174,14 @@ public class Main {
                 default -> System.out.println("잘못된 메뉴입니다.");
             }
         }
+    }
+
+    public static Post findByPostId(ArrayList<Post> posts, int id) {
+        for (Post post : posts) {
+            if (post.getId() == id) {
+                return post;
+            }
+        }
+        return null;
     }
 }
