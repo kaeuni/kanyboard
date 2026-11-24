@@ -64,7 +64,29 @@ public class Main {
                                 + "총 게시글: " + posts.size() + "개");
                     }
                 }
-                case 3 -> System.out.println("게시글 상세 조회를 선택했습니다.");
+                case 3 -> {
+                    System.out.println("게시글 상세 조회를 선택했습니다.");
+                    System.out.print("조회할 게시글 번호: ");
+                    int id = Integer.parseInt(sc.nextLine().trim());
+                    Post foundPost = null;
+                    System.out.println("========= 게시글 상세 ========");
+                    for (Post post : posts) {
+                        if (post.getId() == id) {
+                            foundPost = post;
+                            break;
+                        }
+                    }
+                    if (foundPost == null) {
+                        System.out.println("조회 실패");
+                    } else {
+                        System.out.println(
+                            "번호: " + foundPost.getId() + "\n"
+                            + "제목: " + foundPost.getTitle() + "\n"
+                            + "내용: " + foundPost.getContent() + "\n"
+                            + "작성자: " + foundPost.getAuthor());
+                        System.out.println("===========================");
+                    }
+                }
                 case 4 -> System.out.println("게시글 수정을 선택했습니다.");
                 case 5 -> System.out.println("게시글 삭제를 선택했습니다.");
                 default -> System.out.println("잘못된 메뉴입니다.");
