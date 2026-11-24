@@ -77,7 +77,7 @@ public class Main {
                         }
                     }
                     if (foundPost == null) {
-                        System.out.println("조회 실패");
+                        System.out.println("존재하지 않는 게시글 번호입니다.");
                     } else {
                         System.out.println(
                             "번호: " + foundPost.getId() + "\n"
@@ -87,7 +87,53 @@ public class Main {
                         System.out.println("===========================");
                     }
                 }
-                case 4 -> System.out.println("게시글 수정을 선택했습니다.");
+                case 4 -> {
+                    System.out.println("게시글 수정을 선택했습니다.");
+                    System.out.print("수정할 게시글 번호: ");
+                    int id = Integer.parseInt(sc.nextLine().trim());
+                    Post updatePost = null;
+                    for (Post post : posts) {
+                        if (post.getId() == id) {
+                            updatePost = post;
+                            break;
+                        }
+                    }
+                    if (updatePost == null) {
+                        System.out.println("존재하지 않는 게시글 번호입니다.");
+                    } else {
+                        System.out.println();
+                        System.out.println("기존 제목: " + updatePost.getTitle());
+                        System.out.println("기존 내용: " + updatePost.getContent());
+                        System.out.println("기존 작성자: " + updatePost.getAuthor());
+
+                        System.out.print("새로운 제목: ");
+                        String title = sc.nextLine().trim();
+                        while (title.isEmpty()) {
+                            System.out.println("제목은 필수 입력 항목입니다.");
+                            System.out.print("새로운 제목: ");
+                            title = sc.nextLine().trim();
+                        }
+                        System.out.print("새로운 내용: ");
+                        String content = sc.nextLine().trim();
+                        while (content.isEmpty()) {
+                            System.out.println("내용은 필수 입력 항목입니다.");
+                            System.out.print("새로운 내용: ");
+                            content = sc.nextLine().trim();
+                        }
+                        System.out.print("새로운 작성자: ");
+                        String author = sc.nextLine().trim();
+                        while (author.isEmpty()) {
+                            System.out.println("작성자는 필수 입력 항목입니다.");
+                            System.out.print("새로운 작성자: ");
+                            author = sc.nextLine().trim();
+                        }
+
+                        updatePost.setTitle(title);
+                        updatePost.setContent(content);
+                        updatePost.setAuthor(author);
+                        System.out.println("게시글이 수정되었습니다.");
+                    }
+                }
                 case 5 -> System.out.println("게시글 삭제를 선택했습니다.");
                 default -> System.out.println("잘못된 메뉴입니다.");
             }
