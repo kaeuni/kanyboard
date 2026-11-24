@@ -13,15 +13,7 @@ public class Main {
                 break;
             }
             switch (menu) {
-                case 1 -> {
-                    System.out.println("게시글 등록을 선택했습니다.");
-                    String title = readRequiredString(sc, "제목: ", "제목은 필수 입력 항목입니다.");
-                    String content = readRequiredString(sc, "내용: ", "내용은 필수 입력 항목입니다.");
-                    String author = readRequiredString(sc, "작성자: ", "작성자는 필수 입력 항목입니다.");
-                    Post post = new Post(nextId++, title, content, author);
-                    posts.add(post);
-                    System.out.println("게시글이 등록되었습니다.");
-                }
+                case 1 -> nextId = createPost(sc, posts, nextId);
                 case 2 -> {
                     System.out.println("게시글 전체 조회를 선택했습니다.");
                     if (posts.isEmpty()) {
@@ -146,5 +138,16 @@ public class Main {
             "5. 게시글 삭제\n" +
             "0. 프로그램 종료\n" +
             "===========================");
+    }
+
+    public static int createPost(Scanner sc, ArrayList<Post> posts, int nextId) {
+        System.out.println("게시글 등록을 선택했습니다.");
+        String title = readRequiredString(sc, "제목: ", "제목은 필수 입력 항목입니다.");
+        String content = readRequiredString(sc, "내용: ", "내용은 필수 입력 항목입니다.");
+        String author = readRequiredString(sc, "작성자: ", "작성자는 필수 입력 항목입니다.");
+        Post post = new Post(nextId++, title, content, author);
+        posts.add(post);
+        System.out.println("게시글이 등록되었습니다.");
+        return  nextId;
     }
 }
