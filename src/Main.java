@@ -1,10 +1,10 @@
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        PostRepository postRepository = new PostRepository();
+        MemoryPostRepository postRepository = new MemoryPostRepository();
         PostService postService = new PostService(postRepository);
         while(true){
             printMenu();
@@ -71,7 +71,7 @@ public class Main {
 
     public static void findAllPosts(PostService postService) {
         System.out.println("게시글 전체 조회를 선택했습니다.");
-        ArrayList<Post> posts = postService.findAllPosts();
+        List<Post> posts = postService.findAllPosts();
         if (posts.isEmpty()) {
             System.out.println("등록된 게시글이 없습니다.");
         } else {

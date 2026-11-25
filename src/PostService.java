@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.List;
 
 public class PostService {
 
@@ -14,7 +14,7 @@ public class PostService {
         return postRepository.save(title, content, author);
     }
 
-    public ArrayList<Post> findAllPosts() {
+    public List<Post> findAllPosts() {
         return postRepository.findAll();
     }
 

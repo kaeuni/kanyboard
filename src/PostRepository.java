@@ -1,33 +1,14 @@
-import java.util.ArrayList;
+import java.util.List;
 
-public class PostRepository {
-    private ArrayList<Post> posts = new ArrayList<>();
-    private int nextId = 1;
+public interface PostRepository {
 
-    public int save(String title, String content, String author) {
-        Post post = new Post(nextId++, title, content, author);
-        posts.add(post);
-        return post.getId();
-    }
+    int save(String title, String content, String author);
 
-    public Post findById(int id) {
-        for (Post post : posts) {
-            if (post.getId() == id) {
-                return post;
-            }
-        } return null;
-    }
+    Post findById(int id);
 
-    public ArrayList<Post> findAll() {
-        return new ArrayList<>(posts);
-    }
+    List<Post> findAll();
 
-    public void update(Post post, String title, String content, String author) {
-        post.setTitle(title);
-        post.setContent(content);
-        post.setAuthor(author);
-    }
-    public void delete(Post post) {
-        posts.remove(post);
-    }
+    void update(Post post, String title, String content, String author);
+
+    void delete(Post post);
 }
