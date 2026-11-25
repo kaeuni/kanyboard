@@ -61,8 +61,12 @@ public class Main {
         String title = readRequiredString(sc, "제목: ", "제목은 필수 입력 항목입니다.");
         String content = readRequiredString(sc, "내용: ", "내용은 필수 입력 항목입니다.");
         String author = readRequiredString(sc, "작성자: ", "작성자는 필수 입력 항목입니다.");
-        int saveId = postService.createPost(title, content, author);
-        System.out.println(saveId + "번 게시글이 등록되었습니다.");
+        try {
+            int saveId = postService.createPost(title, content, author);
+            System.out.println(saveId + "번 게시글이 등록되었습니다.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void findAllPosts(PostService postService) {
@@ -117,8 +121,12 @@ public class Main {
             String newContent = readRequiredString(sc, "새로운 내용: ", "내용은 필수 입력 항목입니다.");
             String newAuthor = readRequiredString(sc, "새로운 작성자: ", "작성자는 필수 입력 항목입니다.");
 
-            postService.updatePost(updatePost, newTitle, newContent, newAuthor);
-            System.out.println(updateId + "번 게시글이 수정되었습니다.");
+            try {
+                postService.updatePost(updateId, newTitle, newContent, newAuthor);
+                System.out.println(updateId + "번 게시글이 수정되었습니다.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -139,8 +147,12 @@ public class Main {
                 choice = sc.nextLine().trim();
             }
             if (choice.equalsIgnoreCase("Y")) {
-                postService.deletePost(removePost);
-                System.out.println(deleteId + "번 게시글이 삭제되었습니다.");
+                try {
+                    postService.deletePost(deleteId);
+                    System.out.println(deleteId + "번 게시글이 삭제되었습니다.");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
                 System.out.println("삭제가 취소되었습니다.");
             }
