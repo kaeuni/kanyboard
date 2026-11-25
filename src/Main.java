@@ -17,30 +17,7 @@ public class Main {
                 case 2 -> findAllPosts(posts);
                 case 3 -> findPost(sc, posts);
                 case 4 -> updatePost(sc, posts);
-                case 5 -> {
-                    System.out.println("게시글 삭제를 선택했습니다.");
-                    int id = readInt(sc, "삭제할 게시글 번호: ");
-                    Post removePost = findByPostId(posts, id);
-                    if (removePost == null) {
-                        System.out.println("존재하지 않는 게시글 번호입니다.");
-                    } else {
-                        System.out.println("제목: " + removePost.getTitle());
-                        System.out.println("내용: " + removePost.getContent());
-                        System.out.println("작성자: " + removePost.getAuthor());
-                        System.out.print("정말 삭제 하시겠습니까? (Y/N): ");
-                        String choice = sc.nextLine().trim();
-                        while (!choice.equalsIgnoreCase("Y") && !choice.equalsIgnoreCase("N")) {
-                            System.out.println("잘못된 입력입니다. Y 또는 N을 입력해주세요.");
-                            choice = sc.nextLine().trim();
-                        }
-                        if (choice.equalsIgnoreCase("Y")) {
-                            posts.remove(removePost);
-                            System.out.println("게시글이 삭제되었습니다.");
-                        } else {
-                            System.out.println("삭제가 취소되었습니다.");
-                        }
-                    }
-                }
+                case 5 -> deletePost(sc, posts);
                 default -> System.out.println("잘못된 메뉴입니다.");
             }
         }
@@ -154,6 +131,31 @@ public class Main {
             updatePost.setContent(newContent);
             updatePost.setAuthor(newAuthor);
             System.out.println("게시글이 수정되었습니다.");
+        }
+    }
+
+    public static void deletePost(Scanner sc, ArrayList<Post> posts) {
+        System.out.println("게시글 삭제를 선택했습니다.");
+        int id = readInt(sc, "삭제할 게시글 번호: ");
+        Post removePost = findByPostId(posts, id);
+        if (removePost == null) {
+            System.out.println("존재하지 않는 게시글 번호입니다.");
+        } else {
+            System.out.println("제목: " + removePost.getTitle());
+            System.out.println("내용: " + removePost.getContent());
+            System.out.println("작성자: " + removePost.getAuthor());
+            System.out.print("정말 삭제 하시겠습니까? (Y/N): ");
+            String choice = sc.nextLine().trim();
+            while (!choice.equalsIgnoreCase("Y") && !choice.equalsIgnoreCase("N")) {
+                System.out.println("잘못된 입력입니다. Y 또는 N을 입력해주세요.");
+                choice = sc.nextLine().trim();
+            }
+            if (choice.equalsIgnoreCase("Y")) {
+                posts.remove(removePost);
+                System.out.println("게시글이 삭제되었습니다.");
+            } else {
+                System.out.println("삭제가 취소되었습니다.");
+            }
         }
     }
 }
