@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        MemoryPostRepository postRepository = new MemoryPostRepository();
+        PostRepository postRepository = new JdbcPostRepository();
         PostService postService = new PostService(postRepository);
         while(true){
             printMenu();
@@ -12,15 +12,19 @@ public class Main {
             if (menu == 0) {
                 break;
             }
-            switch (menu) {
-                case 1 -> createPost(sc, postService);
-                case 2 -> findAllPosts(postService);
-                case 3 -> findPost(sc, postService);
-                case 4 -> updatePost(sc, postService);
-                case 5 -> deletePost(sc, postService);
-                default -> System.out.println("잘못된 메뉴입니다.");
+            try {
+                switch (menu) {
+                    case 1 -> createPost(sc, postService);
+                    case 2 -> findAllPosts(postService);
+                    case 3 -> findPost(sc, postService);
+                    case 4 -> updatePost(sc, postService);
+                    case 5 -> deletePost(sc, postService);
+                    default -> System.out.println("잘못된 메뉴입니다.");
+                }
+            } catch (IllegalStateException e) {
+                System.out.println(e.getMessage());
             }
-        }
+        } sc.close();
     }
 
     public static String readRequiredString(Scanner sc, String prompt, String errorMessage) {
