@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         PostRepository postRepository = new PostRepository();
+        PostService postService = new PostService(postRepository);
         while(true){
             printMenu();
             int menu = readInt(sc, "메뉴 선택: ");
@@ -12,11 +13,11 @@ public class Main {
                 break;
             }
             switch (menu) {
-                case 1 -> createPost(sc, postRepository);
-                case 2 -> findAllPosts(postRepository);
-                case 3 -> findPost(sc, postRepository);
-                case 4 -> updatePost(sc, postRepository);
-                case 5 -> deletePost(sc, postRepository);
+                case 1 -> createPost(sc, postService);
+                case 2 -> findAllPosts(postService);
+                case 3 -> findPost(sc, postService);
+                case 4 -> updatePost(sc, postService);
+                case 5 -> deletePost(sc, postService);
                 default -> System.out.println("잘못된 메뉴입니다.");
             }
         }
@@ -55,18 +56,18 @@ public class Main {
             "===========================");
     }
 
-    public static void createPost(Scanner sc, PostRepository postRepository) {
+    public static void createPost(Scanner sc, PostService postService) {
         System.out.println("게시글 등록을 선택했습니다.");
         String title = readRequiredString(sc, "제목: ", "제목은 필수 입력 항목입니다.");
         String content = readRequiredString(sc, "내용: ", "내용은 필수 입력 항목입니다.");
         String author = readRequiredString(sc, "작성자: ", "작성자는 필수 입력 항목입니다.");
-        int saveId = postRepository.save(title, content, author);
+        int saveId = postService.createPost(title, content, author);
         System.out.println(saveId + "번 게시글이 등록되었습니다.");
     }
 
-    public static void findAllPosts(PostRepository postRepository) {
+    public static void findAllPosts(PostService postService) {
         System.out.println("게시글 전체 조회를 선택했습니다.");
-        ArrayList<Post> posts = postRepository.findAll();
+        ArrayList<Post> posts = postService.findAllPosts();
         if (posts.isEmpty()) {
             System.out.println("등록된 게시글이 없습니다.");
         } else {
@@ -82,10 +83,10 @@ public class Main {
         }
     }
 
-    public static void findPost(Scanner sc, PostRepository postRepository) {
+    public static void findPost(Scanner sc, PostService postService) {
         System.out.println("게시글 상세 조회를 선택했습니다.");
-        int id = readInt(sc, "조회할 게시글 번호: ");
-        Post foundPost = postRepository.findById(id);
+        int findId = readInt(sc, "조회할 게시글 번호: ");
+        Post foundPost = postService.findPost(findId);
         System.out.println("========= 게시글 상세 ========");
         if (foundPost == null) {
             System.out.println("존재하지 않는 게시글 번호입니다.");
@@ -99,10 +100,10 @@ public class Main {
         }
     }
 
-    public static void updatePost(Scanner sc, PostRepository postRepository) {
+    public static void updatePost(Scanner sc, PostService postService) {
         System.out.println("게시글 수정을 선택했습니다.");
         int updateId = readInt(sc, "수정할 게시글 번호: ");
-        Post updatePost = postRepository.findById(updateId);
+        Post updatePost = postService.findPost(updateId);
         if (updatePost == null) {
             System.out.println("존재하지 않는 게시글 번호입니다.");
         } else {
@@ -116,15 +117,15 @@ public class Main {
             String newContent = readRequiredString(sc, "새로운 내용: ", "내용은 필수 입력 항목입니다.");
             String newAuthor = readRequiredString(sc, "새로운 작성자: ", "작성자는 필수 입력 항목입니다.");
 
-            postRepository.update(updatePost, newTitle, newContent, newAuthor);
+            postService.updatePost(updatePost, newTitle, newContent, newAuthor);
             System.out.println(updateId + "번 게시글이 수정되었습니다.");
         }
     }
 
-    public static void deletePost(Scanner sc, PostRepository postRepository) {
+    public static void deletePost(Scanner sc, PostService postService) {
         System.out.println("게시글 삭제를 선택했습니다.");
         int deleteId = readInt(sc, "삭제할 게시글 번호: ");
-        Post removePost = postRepository.findById(deleteId);
+        Post removePost = postService.findPost(deleteId);
         if (removePost == null) {
             System.out.println("존재하지 않는 게시글 번호입니다.");
         } else {
@@ -138,7 +139,7 @@ public class Main {
                 choice = sc.nextLine().trim();
             }
             if (choice.equalsIgnoreCase("Y")) {
-                postRepository.delete(removePost);
+                postService.deletePost(removePost);
                 System.out.println(deleteId + "번 게시글이 삭제되었습니다.");
             } else {
                 System.out.println("삭제가 취소되었습니다.");
