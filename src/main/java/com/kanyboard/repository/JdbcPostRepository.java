@@ -2,11 +2,13 @@ package com.kanyboard.repository;
 
 import com.kanyboard.config.DBConnection;
 import com.kanyboard.domain.Post;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class JdbcPostRepository implements PostRepository {
 
     @Override

@@ -2,9 +2,11 @@ package com.kanyboard.service;
 
 import com.kanyboard.domain.Post;
 import com.kanyboard.repository.PostRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PostService {
 
     private final PostRepository postRepository;
