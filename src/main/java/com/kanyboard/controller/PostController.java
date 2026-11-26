@@ -2,12 +2,14 @@ package com.kanyboard.controller;
 
 import com.kanyboard.domain.Post;
 import com.kanyboard.dto.PostCreateRequest;
+import com.kanyboard.dto.PostResponse;
 import com.kanyboard.dto.PostUpdateRequest;
 import com.kanyboard.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,14 +30,19 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> findAll() {
-        return postService.findAllPosts();
+    public List<PostResponse> findAll() {
+        List<Post> posts = postService.findAllPosts();
+        List<PostResponse> responses = new ArrayList<>();
+        for (Post post : posts) {
+            responses.add(PostResponse.from(post));
+        }
+        return responses;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Post> findById(@PathVariable int id) {
+    public ResponseEntity<PostResponse> findById(@PathVariable int id) {
         Post post =  postService.findPost(id);
-        return ResponseEntity.ok(post);
+        return ResponseEntity.ok(PostResponse.from(post));
     }
 
     @PutMapping("/{id}")
