@@ -4,6 +4,7 @@ import com.kanyboard.domain.Post;
 import com.kanyboard.dto.PostCreateRequest;
 import com.kanyboard.dto.PostUpdateRequest;
 import com.kanyboard.service.PostService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Integer> createPost(@RequestBody PostCreateRequest request) {
+    public ResponseEntity<Integer> createPost(@Valid @RequestBody PostCreateRequest request) {
         int id = postService.createPost(
                 request.getTitle(), request.getContent(), request.getAuthor());
         return ResponseEntity.status(201).body(id);
@@ -41,7 +42,7 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updatePost(@PathVariable int id, @RequestBody PostUpdateRequest request) {
+    public ResponseEntity<Void> updatePost(@PathVariable int id, @Valid @RequestBody PostUpdateRequest request) {
         postService.updatePost(id, request.getTitle(), request.getContent(), request.getAuthor());
         return ResponseEntity.status(204).build();
     }
