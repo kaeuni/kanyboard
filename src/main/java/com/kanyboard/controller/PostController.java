@@ -2,6 +2,7 @@ package com.kanyboard.controller;
 
 import com.kanyboard.domain.Post;
 import com.kanyboard.dto.PostCreateRequest;
+import com.kanyboard.dto.PostUpdateRequest;
 import com.kanyboard.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,11 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(post);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updatePost(@PathVariable int id, @RequestBody PostUpdateRequest request) {
+        postService.updatePost(id, request.getTitle(), request.getContent(), request.getAuthor());
+        return ResponseEntity.status(204).build();
     }
 }
