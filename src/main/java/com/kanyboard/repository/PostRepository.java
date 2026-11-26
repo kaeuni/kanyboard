@@ -1,3 +1,7 @@
+package com.kanyboard.repository;
+
+import com.kanyboard.domain.Post;
+
 import java.util.List;
 
 public interface PostRepository {

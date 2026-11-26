@@ -1,3 +1,5 @@
+package com.kanyboard.domain;
+
 public class Post {
     private final int id;
     private String title;

@@ -1,3 +1,8 @@
+package com.kanyboard.repository;
+
+import com.kanyboard.config.DBConnection;
+import com.kanyboard.domain.Post;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
