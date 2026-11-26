@@ -45,4 +45,10 @@ public class PostController {
         postService.updatePost(id, request.getTitle(), request.getContent(), request.getAuthor());
         return ResponseEntity.status(204).build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable int id) {
+        postService.deletePost(id);
+        return ResponseEntity.status(204).build();
+    }
 }
