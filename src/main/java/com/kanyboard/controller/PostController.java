@@ -2,9 +2,7 @@ package com.kanyboard.controller;
 
 import com.kanyboard.domain.Post;
 import com.kanyboard.service.PostService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,10 @@ public class PostController {
     @GetMapping
     public List<Post> findAll() {
         return postService.findAllPosts();
+    }
+
+    @GetMapping("/{id}")
+    public Post findById(@PathVariable int id) {
+        return postService.findPost(id);
     }
 }
