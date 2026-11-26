@@ -1,12 +1,10 @@
 package com.kanyboard.controller;
 
 import com.kanyboard.domain.Post;
+import com.kanyboard.dto.PostCreateRequest;
 import com.kanyboard.service.PostService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +16,13 @@ public class PostController {
 
     public PostController(PostService postService) {
         this.postService = postService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Integer> createPost(@RequestBody PostCreateRequest request) {
+        int id = postService.createPost(
+                request.getTitle(), request.getContent(), request.getAuthor());
+        return ResponseEntity.status(201).body(id);
     }
 
     @GetMapping
